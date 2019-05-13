@@ -1,5 +1,8 @@
 package main
 
+/**
+ * 快速排序
+ */
 import "fmt"
 
 func main() {
@@ -9,8 +12,8 @@ func main() {
 	fmt.Println(a)
 }
 
-func sort(a []int, lo, hi int) {
-	if (lo >= hi) {
+func sort(a []int, lo, hi int) { // 递归调用
+	if lo >= hi {
 		return
 	}
 	j := partition(a, lo, hi)
@@ -18,23 +21,23 @@ func sort(a []int, lo, hi int) {
 	sort(a, j+1, hi)
 }
 
-func partition(a []int, lo, hi int) (int) {
+func partition(a []int, lo, hi int) int { // 将a[lo+1]至a[hi]中所有小于a[lo]的数放左边, 大雨a[lo]的数放右边
 	i, j := lo+1, hi
 	v := a[lo]
 	for true {
 		for a[i] < v {
-			if (i == hi) {
+			if i == hi {
 				break
 			}
 			i++
 		}
 		for a[j] > v {
-			if (j == lo) {
+			if j == lo {
 				break
 			}
 			j--
 		}
-		if (i >= j) {
+		if i >= j {
 			break
 		}
 		tmp := a[i]
