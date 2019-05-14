@@ -40,12 +40,8 @@ func partition(a []int, lo, hi int) int { // 将a[lo+1]至a[hi]中所有小于a[
 		if i >= j {
 			break
 		}
-		tmp := a[i]
-		a[i] = a[j]
-		a[j] = tmp
+		a[i], a[j] = a[j], a[i]
 	}
-	tmp := a[lo]
-	a[lo] = a[j]
-	a[j] = tmp
+	a[j], a[lo] = a[lo], a[j]
 	return j
 }

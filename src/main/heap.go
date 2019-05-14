@@ -9,9 +9,7 @@ type Heap struct {
 }
 
 func (heap Heap) exch(i, j int) { // 交换a[i]和a[j]
-	tmp := heap.a[i]
-	heap.a[i] = heap.a[j]
-	heap.a[j] = tmp
+	heap.a[i], heap.a[j] = heap.a[j], heap.a[i]
 }
 
 func (heap Heap) swim(i int) { // 上浮
