@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	a := []int{2, 1, 5, 7, 9, 0, 6, 4, 3, 8}
+	a := []int{2, 1, 10, 11, 9, 12, 6, 4, 3, 8, 5, 7, 0}
 	fmt.Println(a)
-	heapSort(a, 10)
+	heapSort(a, len(a))
 	fmt.Println(a)
 }
 
