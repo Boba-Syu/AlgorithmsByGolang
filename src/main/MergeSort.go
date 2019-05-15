@@ -3,14 +3,22 @@ package main
 /**
  * 归并排序
  */
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 var aux [10]int
 
 func main() {
-	a := []int{2, 1, 5, 7, 9, 0, 6, 4, 3, 8}
+	rand.Seed(time.Now().Unix())
+	var a []int
+	for i := 0; i < 10; i++ {
+		a = append(a, rand.Intn(100))
+	}
 	fmt.Println(a)
-	//top_down_sort(a, 0, 9)
+	//top_down_sort(a, 0, len(a)-1)
 	down_top_sort(a)
 	fmt.Println(a)
 }
