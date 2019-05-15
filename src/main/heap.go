@@ -32,3 +32,21 @@ func (heap Heap) sink(i int) { // 下潜
 		i = j
 	}
 }
+
+func (heap Heap) getTop() int {
+	return heap.a[0]
+}
+
+func (heap Heap) delTop() int {
+	top := heap.a[0]
+	heap.a[0] = heap.a[heap.N]
+	heap.N--
+	heap.sink(0)
+	return top
+}
+
+func (heap Heap) add(value int) {
+	heap.a = append(heap.a, value)
+	heap.N++
+	heap.sink(heap.N)
+}
