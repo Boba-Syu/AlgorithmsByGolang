@@ -50,7 +50,34 @@ func floor(root *TreeNode, key int) *TreeNode { // 查找键为key的结点
 	return root
 }
 
-func put(root *TreeNode, key, value int) *TreeNode { // 跟新键为key的结点的值为value
+func find(root *TreeNode, k int) *TreeNode { // 查找排名为k的结点
+	if root == nil {
+		return nil
+	}
+	t := root.left.n
+	if k < t {
+		return find(root.left, k)
+	}
+	if k > t {
+		return find(root.right, k-t-1)
+	}
+	return root
+}
+
+func rank(root *TreeNode, key int) int { // 返回键为key的结点的排名
+	if root == nil {
+		return 0
+	}
+	if key < root.key {
+		return rank(root.left, key)
+	}
+	if key > root.key {
+		return rank(root.right, key) + root.n + 1
+	}
+	return root.left.n
+}
+
+func put(root *TreeNode, key, value int) *TreeNode { // 更新键为key的结点的值为value
 	if root == nil {
 		return newTreeNode(key, value, 1)
 	}
@@ -62,5 +89,60 @@ func put(root *TreeNode, key, value int) *TreeNode { // 跟新键为key的结点
 		root.val = value
 	}
 	root.n = root.left.n + root.right.n
+	return root
+}
+
+func min(root *TreeNode) *TreeNode { // 返回键最小的结点
+	if root.left == nil {
+		return root
+	}
+	return min(root.left)
+}
+
+func max(root *TreeNode) *TreeNode { // 返回键最小的结点
+	if root.right == nil {
+		return root
+	}
+	return max(root)
+}
+
+func delMin(root *TreeNode) *TreeNode { // 删除键最小的结点
+	if root.left == nil {
+		return root.right
+	}
+	root.left = delMin(root.left)
+	root.n = root.left.n + root.right.n + 1
+	return root
+}
+
+func delMax(root *TreeNode) *TreeNode {
+	if root.right == nil {
+		return root.left
+	}
+	root.right = delMin(root.right)
+	root.n = root.left.n + root.right.n + 1
+	return root
+}
+
+func delete(root *TreeNode, key int) *TreeNode { // 删除键为key的结点
+	if root == nil {
+		return nil
+	}
+	if key < root.key {
+		root.left = delete(root.left, key)
+	} else if key > root.key {
+		root.right = delete(root.right, key)
+	} else {
+		if root.right == nil {
+			return root.left
+		}
+		if root.left == nil {
+			return root.right
+		}
+		t := min(root.right)
+		t.right = delMin(t.right)
+		root.left = t.left
+	}
+	root.n = root.left.n + root.right.n + 1
 	return root
 }
